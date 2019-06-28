@@ -4,12 +4,13 @@ const length = 100;
 const type = 'line';
 const labels = Array(length).fill('');
 let dataList = Array(length).fill({x: 0, y: 0, z: 0});
+const range = 15;
 const options = {
   scales: {
     yAxes: [{
       ticks: {
-        max: 10,
-        min: -10,
+        max: range,
+        min: -range,
       }
     }],
     xAxes: [{
