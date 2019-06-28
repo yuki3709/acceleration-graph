@@ -34,23 +34,15 @@
       }]
     }
   };
-  const createDatasets = dataList => ([
-    {
-      label: 'x',
-      data: dataList.map(({x}) => x).slice(-length),
-      borderColor: "rgba(255,0,0,1)",
-    },
-    {
-      label: 'y',
-      data: dataList.map(({y}) => y).slice(-length),
-      borderColor: "rgba(0,255,0,1)",
-    },
-    {
-      label: 'z',
-      data: dataList.map(({z}) => z).slice(-length),
-      borderColor: "rgba(0,0,255,1)",
-    }
-  ]);
+  const colors = {x: "rgba(255,0,0,1)", y: "rgba(0,255,0,1)", z: "rgba(0,0,255,1)"};
+  const createDatasets = dataList => ['x', 'y', 'z'].map(label => ({
+      label,
+      data: dataList.map(data => data[label]).slice(-length),
+      borderColor: colors[label],
+      backgroundColor: colors[label],
+      pointBackgroundColor: colors[label],
+      pointBorderColor: colors[label]
+    }));
   const devicemotionHolder = new Vue({
     el: '#devicemotion',
     data: {
