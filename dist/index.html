@@ -14,10 +14,10 @@
 <canvas id="chart" height="100"></canvas>
 <script>
   const chartCanvas = document.getElementById("chart");
-  const length = 300;
+  const length = 100;
   const type = 'line';
   const labels = Array(length).fill('');
-  let dataList = [];
+  let dataList = Array(length).fill({x: 0, y: 0, z: 0});
   const createDatasets = dataList => ([
     {
       label: 'x',
@@ -46,7 +46,7 @@
       z: 0
     }
   });
-  const chart = new Chart(chartCanvas, {type, data: {labels, datasets:createDatasets([])}});
+  const chart = new Chart(chartCanvas, {type, data: {labels, datasets: createDatasets([])}});
   window.addEventListener("devicemotion", e => {
     const {accelerationIncludingGravity: a} = e;
     const {x, y, z} = a;
