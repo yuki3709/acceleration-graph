@@ -23,7 +23,6 @@
     scales: {
       yAxes: [{
         ticks: {
-          beginAtZero: true,
           max: 10,
           min: -10,
         }
@@ -63,14 +62,16 @@
       z: 0
     }
   });
+  const vueRate = 500;
+  const getVueRateSec = () => Math.round(new Date().getMilliseconds() / vueRate);
   const chart = new Chart(chartCanvas, {type, data: {labels, datasets: createDatasets(dataList)}, options});
-  let s = Math.round(new Date().getMilliseconds() / 100);
+  let s = getVueRateSec();
   window.addEventListener("devicemotion", e => {
     const {accelerationIncludingGravity: a} = e;
     const {x, y, z} = a;
     dataList.push({x, y, z});
     dataList = dataList.slice(-length);
-    const _s = Math.round(new Date().getMilliseconds() / 100);
+    const _s = getVueRateSec();
     if (s !== _s) {
       s = _s;
       devicemotionHolder.x = x;
