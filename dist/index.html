@@ -12,7 +12,7 @@
 <div id="devicemotion">
     X：{{x}}<br>Y：{{y}}<br>Z：{{z}}
 </div>
-<canvas id="chart" height="100"></canvas>
+<canvas id="chart" height="200"></canvas>
 <script>
   const chartCanvas = document.getElementById("chart");
   const length = 100;
@@ -25,12 +25,11 @@
         ticks: {
           suggestedMax: 10,
           suggestedMin: -10,
-          stepSize: 10
         }
       }],
       xAxes: [{
-        ticks: {
-          stepSize: 10
+        gridLines: {
+          display: false
         }
       }]
     }
@@ -63,15 +62,20 @@
       z: 0
     }
   });
-  const chart = new Chart(chartCanvas, {type, data: {labels, datasets: createDatasets(dataList), options}});
+  const chart = new Chart(chartCanvas, {type, data: {labels, datasets: createDatasets(dataList)}, options});
+  let s = Math.round(new Date().getMilliseconds() / 100);
   window.addEventListener("devicemotion", e => {
     const {accelerationIncludingGravity: a} = e;
     const {x, y, z} = a;
     dataList.push({x, y, z});
     dataList = dataList.slice(-length);
-    devicemotionHolder.x = x;
-    devicemotionHolder.y = y;
-    devicemotionHolder.z = z;
+    const _s = Math.round(new Date().getMilliseconds() / 100);
+    if (s !== _s) {
+      s = _s;
+      devicemotionHolder.x = x;
+      devicemotionHolder.y = y;
+      devicemotionHolder.z = z;
+    }
     chart.data.datasets = createDatasets(dataList);
     chart.update();
     console.log(a);
