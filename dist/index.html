@@ -6,6 +6,7 @@
     <title>Motion Sensorsサンプル</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
 <div id="devicemotion">
@@ -18,6 +19,22 @@
   const type = 'line';
   const labels = Array(length).fill('');
   let dataList = Array(length).fill({x: 0, y: 0, z: 0});
+  const options = {
+    scales: {
+      yAxes: [{
+        ticks: {
+          suggestedMax: 10,
+          suggestedMin: -10,
+          stepSize: 10
+        }
+      }],
+      xAxes: [{
+        ticks: {
+          stepSize: 10
+        }
+      }]
+    }
+  };
   const createDatasets = dataList => ([
     {
       label: 'x',
@@ -46,7 +63,7 @@
       z: 0
     }
   });
-  const chart = new Chart(chartCanvas, {type, data: {labels, datasets: createDatasets([])}});
+  const chart = new Chart(chartCanvas, {type, data: {labels, datasets: createDatasets(dataList), options}});
   window.addEventListener("devicemotion", e => {
     const {accelerationIncludingGravity: a} = e;
     const {x, y, z} = a;
