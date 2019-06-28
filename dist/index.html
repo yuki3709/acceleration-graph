@@ -7,27 +7,14 @@
 </head>
 <body>
 <div id="devicemotion"></div>
-<div id="deviceorientation"></div>
-
 <script>
-
   const devicemotion_holder = document.getElementById("devicemotion");
-  const deviceorientation_holder = document.getElementById("deviceorientation");
-
   window.addEventListener("devicemotion", e => {
     const x = e.accelerationIncludingGravity.x;
     const y = e.accelerationIncludingGravity.y;
     const z = e.accelerationIncludingGravity.z;
     console.log(e);
     devicemotion_holder.innerHTML = `X：${x}<br>Y：${y}<br>Z：${z}`;
-  }, true);
-
-  window.addEventListener('deviceorientation', e => {
-    const alpha = e.alpha;
-    const beta = e.beta;
-    const gamma = e.gamma;
-    console.log(e);
-    deviceorientation_holder.innerHTML = `alpha：${alpha}<br>beta：${beta}<br>gamma：${gamma}`;
   }, true);
 </script>
 </body>
