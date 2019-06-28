@@ -1,13 +1,34 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0"/>
+    <title>Motion Sensorsサンプル</title>
 </head>
 <body>
-<h1>Document index.html</h1>
+<div id="devicemotion"></div>
+<div id="deviceorientation"></div>
+
+<script>
+
+  const devicemotion_holder = document.getElementById("devicemotion");
+  const deviceorientation_holder = document.getElementById("deviceorientation");
+
+  window.addEventListener("devicemotion", e => {
+    const x = e.accelerationIncludingGravity.x;
+    const y = e.accelerationIncludingGravity.y;
+    const z = e.accelerationIncludingGravity.z;
+    console.log(e);
+    devicemotion_holder.innerHTML = `X：${x}<br>Y：${y}<br>Z：${z}`;
+  }, true);
+
+  window.addEventListener('deviceorientation', e => {
+    const alpha = e.alpha;
+    const beta = e.beta;
+    const gamma = e.gamma;
+    console.log(e);
+    deviceorientation_holder.innerHTML = `alpha：${alpha}<br>beta：${beta}<br>gamma：${gamma}`;
+  }, true);
+</script>
 </body>
 </html>
