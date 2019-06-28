@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0"/>
+    <title>Motion Sensorsサンプル</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="devicemotion">
+    X：{{x}}<br>Y：{{y}}<br>Z：{{z}}
+</div>
+<script>
+  const devicemotionHolder = new Vue({
+    el: '#devicemotion',
+    data: {
+      x: 0,
+      y: 0,
+      z: 0
+    }
+  });
+  window.addEventListener("devicemotion", e => {
+    const {accelerationIncludingGravity: a} = e;
+    devicemotionHolder.x = a.x;
+    devicemotionHolder.y = a.y;
+    devicemotionHolder.z = a.z;
+    console.log(a);
+  }, true);
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "heroku-static-server",
+  "version": "1.0.0",
+  "description": "Herokuを使った静的サーバを立ち上げる時のサンプル",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Akihiro0710/heroku-static-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Akihiro0710/heroku-static-server/issues"
+  },
+  "homepage": "https://github.com/Akihiro0710/heroku-static-server#readme",
+  "dependencies": {
+    "basic-auth-connect": "^1.0.0",
+    "express": "^4.17.1"
+  }
+}
