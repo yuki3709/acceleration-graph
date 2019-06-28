@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0"/>
+    <title>Motion Sensorsサンプル</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+<div id="app">
+    X：{{x}}<br>Y：{{y}}<br>Z：{{z}}
+</div>
+<canvas id="chart" height="200"></canvas>
+<script src="script.js?v=4"></script>
+<script>
+  const vueRate = 500;
+  const getVueRateSec = () => Math.round(new Date().getMilliseconds() / vueRate);
+  let s = getVueRateSec();
+  window.addEventListener("devicemotion", e => {
+    const {accelerationIncludingGravity: a} = e;
+    const {x, y, z} = a;
+    dataList.push({x, y, z});
+    dataList = dataList.slice(-length);
+    const _s = getVueRateSec();
+    if (s !== _s) {
+      s = _s;
+      updateView({x, y, z});
+    }
+    updateChart();
+    console.log(a);
+  }, true);
+</script>
+</body>
+</html>
