@@ -5,12 +5,39 @@
     <meta name="viewport" content="initial-scale=1.0"/>
     <title>Motion Sensorsサンプル</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
 </head>
 <body>
 <div id="devicemotion">
     X：{{x}}<br>Y：{{y}}<br>Z：{{z}}
 </div>
+<canvas id="chart" height="100"></canvas>
 <script>
+  const chartCanvas = document.getElementById("chart");
+  const length = 20;
+  const type = 'line';
+  const labels = Array(length).fill('');
+  let dataList = [];
+  const createDatasets = dataList => ([
+    {
+      label: 'x',
+      data: dataList.map(({x}) => x).slice(-length),
+      borderColor: "rgba(255,0,0,1)",
+      backgroundColor: "rgba(0,0,0,0)"
+    },
+    {
+      label: 'y',
+      data: dataList.map(({y}) => y).slice(-length),
+      borderColor: "rgba(0,255,0,1)",
+      backgroundColor: "rgba(0,0,0,0)"
+    },
+    {
+      label: 'z',
+      data: dataList.map(({z}) => z).slice(-length),
+      borderColor: "rgba(0,0,255,1)",
+      backgroundColor: "rgba(0,0,0,0)"
+    }
+  ]);
   const devicemotionHolder = new Vue({
     el: '#devicemotion',
     data: {
@@ -19,11 +46,17 @@
       z: 0
     }
   });
+  const chart = new Chart(chartCanvas, {type, data: {labels, datasets:createDatasets([])}});
   window.addEventListener("devicemotion", e => {
     const {accelerationIncludingGravity: a} = e;
-    devicemotionHolder.x = a.x;
-    devicemotionHolder.y = a.y;
-    devicemotionHolder.z = a.z;
+    const {x, y, z} = a;
+    dataList.push({x, y, z});
+    dataList = dataList.slice(-length);
+    devicemotionHolder.x = x;
+    devicemotionHolder.y = y;
+    devicemotionHolder.z = z;
+    chart.data.datasets = createDatasets(dataList);
+    chart.update();
     console.log(a);
   }, true);
 </script>
