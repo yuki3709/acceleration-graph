@@ -9,12 +9,13 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
-<div id="devicemotion">
+<div id="app">
     X：{{x}}<br>Y：{{y}}<br>Z：{{z}}
 </div>
 <canvas id="chart" height="200"></canvas>
 <script>
   const chartCanvas = document.getElementById("chart");
+
   const length = 100;
   const type = 'line';
   const labels = Array(length).fill('');
@@ -32,9 +33,24 @@
           display: false
         }
       }]
-    }
+    },
+    animation: false
   };
+
   const colors = {x: "rgba(255,0,0,1)", y: "rgba(0,255,0,1)", z: "rgba(0,0,255,1)"};
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      x: 0,
+      y: 0,
+      z: 0
+    }
+  });
+  const updateView = props => Object.entries(props).forEach(([key, value]) => app[key] = value);
+
+</script>
+<script>
   const createDatasets = dataList => ['x', 'y', 'z'].map(label => ({
     label,
     data: dataList.map(data => data[label]).slice(-length),
@@ -44,14 +60,6 @@
     pointBorderColor: colors[label],
     pointRadius: 0
   }));
-  const devicemotionHolder = new Vue({
-    el: '#devicemotion',
-    data: {
-      x: 0,
-      y: 0,
-      z: 0
-    }
-  });
   const vueRate = 500;
   const getVueRateSec = () => Math.round(new Date().getMilliseconds() / vueRate);
   const chart = new Chart(chartCanvas, {type, data: {labels, datasets: createDatasets(dataList)}, options});
@@ -64,9 +72,7 @@
     const _s = getVueRateSec();
     if (s !== _s) {
       s = _s;
-      devicemotionHolder.x = x;
-      devicemotionHolder.y = y;
-      devicemotionHolder.z = z;
+      updateView({x, y, z});
     }
     chart.data.datasets = createDatasets(dataList);
     chart.update();
