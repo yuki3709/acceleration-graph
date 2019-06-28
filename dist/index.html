@@ -39,19 +39,16 @@
       label: 'x',
       data: dataList.map(({x}) => x).slice(-length),
       borderColor: "rgba(255,0,0,1)",
-      backgroundColor: "rgba(0,0,0,0)"
     },
     {
       label: 'y',
       data: dataList.map(({y}) => y).slice(-length),
       borderColor: "rgba(0,255,0,1)",
-      backgroundColor: "rgba(0,0,0,0)"
     },
     {
       label: 'z',
       data: dataList.map(({z}) => z).slice(-length),
       borderColor: "rgba(0,0,255,1)",
-      backgroundColor: "rgba(0,0,0,0)"
     }
   ]);
   const devicemotionHolder = new Vue({
