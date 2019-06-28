@@ -40,7 +40,7 @@ const createDatasets = dataList => ['x', 'y', 'z'].map(label => ({
   pointRadius: 0
 }));
 const chart = new Chart(chartCanvas, {type, data: {labels, datasets: createDatasets(dataList)}, options});
-const updateChart = dataList => {
+const updateChart = () => {
   chart.data.datasets = createDatasets(dataList);
   chart.update();
 };

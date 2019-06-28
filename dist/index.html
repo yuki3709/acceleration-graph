@@ -13,7 +13,7 @@
     X：{{x}}<br>Y：{{y}}<br>Z：{{z}}
 </div>
 <canvas id="chart" height="200"></canvas>
-<script src="script.js?v=1"></script>
+<script src="script.js?v=2"></script>
 <script>
   const vueRate = 500;
   const getVueRateSec = () => Math.round(new Date().getMilliseconds() / vueRate);
@@ -27,8 +27,8 @@
     if (s !== _s) {
       s = _s;
       updateView({x, y, z});
-      updateChart();
     }
+    updateChart();
     console.log(a);
   }, true);
 </script>
