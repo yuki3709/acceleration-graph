@@ -36,7 +36,6 @@ const createDatasets = dataList => ['x', 'y', 'z'].map(label => ({
   label,
   data: dataList.map(data => data[label]).slice(-length),
   borderColor: colors[label],
-  backgroundColor: colors[label],
   pointRadius: 0
 }));
 const chart = new Chart(chartCanvas, {type, data: {labels, datasets: createDatasets(dataList)}, options});
