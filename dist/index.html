@@ -5,12 +5,45 @@
     <meta name="viewport" content="initial-scale=1.0"/>
     <title>Motion Sensorsサンプル</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
 <div id="devicemotion">
     X：{{x}}<br>Y：{{y}}<br>Z：{{z}}
 </div>
+<canvas id="chart" height="200"></canvas>
 <script>
+  const chartCanvas = document.getElementById("chart");
+  const length = 100;
+  const type = 'line';
+  const labels = Array(length).fill('');
+  let dataList = Array(length).fill({x: 0, y: 0, z: 0});
+  const options = {
+    scales: {
+      yAxes: [{
+        ticks: {
+          max: 10,
+          min: -10,
+        }
+      }],
+      xAxes: [{
+        gridLines: {
+          display: false
+        }
+      }]
+    }
+  };
+  const colors = {x: "rgba(255,0,0,1)", y: "rgba(0,255,0,1)", z: "rgba(0,0,255,1)"};
+  const createDatasets = dataList => ['x', 'y', 'z'].map(label => ({
+    label,
+    data: dataList.map(data => data[label]).slice(-length),
+    borderColor: colors[label],
+    backgroundColor: colors[label],
+    pointBackgroundColor: colors[label],
+    pointBorderColor: colors[label],
+    pointRadius: 0
+  }));
   const devicemotionHolder = new Vue({
     el: '#devicemotion',
     data: {
@@ -19,11 +52,24 @@
       z: 0
     }
   });
+  const vueRate = 500;
+  const getVueRateSec = () => Math.round(new Date().getMilliseconds() / vueRate);
+  const chart = new Chart(chartCanvas, {type, data: {labels, datasets: createDatasets(dataList)}, options});
+  let s = getVueRateSec();
   window.addEventListener("devicemotion", e => {
     const {accelerationIncludingGravity: a} = e;
-    devicemotionHolder.x = a.x;
-    devicemotionHolder.y = a.y;
-    devicemotionHolder.z = a.z;
+    const {x, y, z} = a;
+    dataList.push({x, y, z});
+    dataList = dataList.slice(-length);
+    const _s = getVueRateSec();
+    if (s !== _s) {
+      s = _s;
+      devicemotionHolder.x = x;
+      devicemotionHolder.y = y;
+      devicemotionHolder.z = z;
+    }
+    chart.data.datasets = createDatasets(dataList);
+    chart.update();
     console.log(a);
   }, true);
 </script>
