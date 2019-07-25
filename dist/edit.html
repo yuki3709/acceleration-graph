@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0"/>
+    <title>Motion Sensor実行</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- TODO: ace.jsライブラリの読み込み -->
+    <!-- TODO: エンコードライブラリの読み込み -->
+    <!-- TODO: QRコード生成ライブラリの読み込み -->
+</head>
+<body>
+
+<textarea id="source" cols="30" rows="10"></textarea>
+<!-- TODO: 編集画面 -->
+<img id="qr" src="" alt="QRコード">
+<button id="updateButton">更新</button>
+
+<!-- TODO: ace.jsの設定 -->
+
+<script>
+    const qr = document.getElementById('qr');
+    const source = document.getElementById('source');
+    const encode = text => {
+      // TODO: エンコード
+      return text;
+    };
+
+    const updateQR = () => {
+      // URL生成
+      const url = location.origin + "?s=" + encode(source.value);
+      // TODO: URLからQRコード生成
+
+      // TODO: QR更新
+      qr;
+    };
+
+    // ボタンに更新イベントを登録
+    const updateButton = document.getElementById('updateButton');
+    updateButton.addEventListener('click', updateQR)
+</script>
+</body>
+</html>
