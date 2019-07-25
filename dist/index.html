@@ -3,17 +3,32 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="initial-scale=1.0"/>
-    <title>Motion Sensorsサンプル</title>
+    <title>Motion Sensor実行</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- TODO: エンコードライブラリの読み込み -->
 </head>
 <body>
 <div id="app">
     X：{{x}}<br>Y：{{y}}<br>Z：{{z}}
 </div>
 <canvas id="chart" height="200"></canvas>
-<script src="script.js?v=4"></script>
+<script src="script.js"></script>
+<script>
+    // TODO: クエリをデコード
+    const decode = text => {
+      return text;
+    };
+      // TODO: URLからソースコードを取得
+    const getSourceByURL = () => {
+      // TODO: クエリを取得
+      const text = "";
+      return decode(text);
+    };
+    // TODO: 文字列をJSとして実行（関数定義）
+    const source = getSourceByURL();
+</script>
 <script>
   const vueRate = 500;
   const getVueRateSec = () => Math.round(new Date().getMilliseconds() / vueRate);
@@ -26,6 +41,8 @@
     const _s = getVueRateSec();
     if (s !== _s) {
       s = _s;
+      // TODO: ユーザが定義した関数を実行
+
       updateView({x, y, z});
     }
     updateChart();
