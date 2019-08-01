@@ -34,8 +34,8 @@
     const qr = document.getElementById('qr');
     const source = document.getElementById('source');
     const encode = text => {
-      // TODO: エンコード
-      return text;
+      //console.log(encodeURI(text));
+      return encodeURI(text);
     };
 
     const updateQR = () => {
