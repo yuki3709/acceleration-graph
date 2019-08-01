@@ -8,8 +8,8 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
     <!-- TODO: エンコードライブラリの読み込み -->
-    <script src="../js/jquery-3.4.1.min.js"></script>
-    <script src="../js/jquery.qrcode.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery.qrcode.min.js"></script>
 </head>
 <body>
 <div id="app">
@@ -20,7 +20,7 @@
 <script>
     // TODO: URLからソースコードを取得
     const source = decodeURI((location.search).substring(3));
-    //alert("eval("+source+ ")=" + eval(source));
+    alert("eval("+source+ ")=" + eval(source));
     
 </script>
 <script>
