@@ -9,8 +9,8 @@
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.js"></script>
   <!-- TODO: エンコードライブラリの読み込み -->
-  <script src="./js/jquery-3.4.1.min.js"></script>
-  <script src="./js/jquery.qrcode.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery.qrcode.min.js"></script>
   <div id="qrcode"></div>
 </head>
 
@@ -35,7 +35,7 @@
     const source = document.getElementById('source');
     const encode = text => {
       // TODO: エンコード
-      return encodeURI(text);
+      return text;
     };
 
     const updateQR = () => {
@@ -43,9 +43,7 @@
       const url = location.origin + "?s=" + encode(source.value);
       jQuery('#qrcode').qrcode(url);
 
-      var element = document.getElementById("qrcode");
-      var childElementCount = element.childElementCount;
-      if (childElementCount > 1) element.removeChild(element.firstChild);
+      // TODO: QR更新
     };
 
     // ボタンに更新イベントを登録
