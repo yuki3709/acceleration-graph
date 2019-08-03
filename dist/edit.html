@@ -7,6 +7,7 @@
   <title>Motion Sensor実行</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.js"></script>
   <!-- TODO: エンコードライブラリの読み込み -->
   <script src="./js/jquery-3.4.1.min.js"></script>
@@ -35,14 +36,9 @@
   <script>
     const qr = document.getElementById('qr');
     const source = document.getElementById('source');
-    const encode = text => {
-      // TODO: エンコード
-      return encodeURI(text);
-    };
-
     const updateQR = () => {
       // URL生成
-      const url = location.origin + "?s=" + encode(editor.value);
+      const url = location.origin + "?s=" + LZString.compressToEncodedURIComponent(source.value);
       jQuery('#qrcode').qrcode({
         width: 100,
         height: 100,
@@ -52,6 +48,8 @@
       var element = document.getElementById("qrcode");
       var childElementCount = element.childElementCount;
       if (childElementCount > 1) element.removeChild(element.firstChild);
+      // URL生成
+      $('#qrcode').qrcode(url);
     };
 
     // ボタンに更新イベントを登録
