@@ -35,7 +35,7 @@
     const source = document.getElementById('source');
     const encode = text => {
       // TODO: エンコード
-      return text;
+      return encodeURI(text);
     };
 
     const updateQR = () => {
