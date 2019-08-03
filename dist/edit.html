@@ -43,7 +43,9 @@
       const url = location.origin + "?s=" + encode(source.value);
       jQuery('#qrcode').qrcode(url);
 
-      // TODO: QR更新
+      var element = document.getElementById("qrcode");
+      var childElementCount = element.childElementCount;
+      if (childElementCount > 1) element.removeChild(element.firstChild);
     };
 
     // ボタンに更新イベントを登録
