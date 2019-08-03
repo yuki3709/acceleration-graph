@@ -33,7 +33,7 @@
   </script>
 
   <script>
-    const qr = document.getElementById('qr');
+    const qr = document.getElementById('qrcode');
     const source = document.getElementById('source');
     const encode = text => {
       // TODO: エンコード
@@ -48,10 +48,9 @@
         height: 100,
         text: url
       });
-
-      var element = document.getElementById("qrcode");
-      var childElementCount = element.childElementCount;
-      if (childElementCount > 1) element.removeChild(element.firstChild);
+      var childElementCount = qr.childElementCount;
+      qr.firstChild.style.padding = "10px";
+      if (childElementCount > 1) qr.removeChild(qr.firstChild);
     };
 
     // ボタンに更新イベントを登録
