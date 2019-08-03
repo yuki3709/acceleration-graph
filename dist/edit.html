@@ -11,23 +11,25 @@
   <!-- TODO: エンコードライブラリの読み込み -->
   <script src="./js/jquery-3.4.1.min.js"></script>
   <script src="./js/jquery.qrcode.min.js"></script>
+  <div id="editor" style="height: 600px"></div>
   <div id="qrcode"></div>
 </head>
 
 <body>
-
-  <textarea id="source" cols="30" rows="10"></textarea>
   <!-- TODO: 編集画面 -->
   <!--<img id="qr" src="" alt="QRコード">-->
   <button id="updateButton">更新</button>
 
   <script>
     var editor = ace.edit("editor");
+    editor.$blockScrolling = Infinity;
+    editor.setOptions({
+      enableBasicAutocompletion: true,
+      enableSnippets: true,
+      enableLiveAutocompletion: true
+    });
     editor.setTheme("ace/theme/monokai");
-    editor.setFontSize(14);
-    editor.getSession().setMode("ace/mode/html");
-    editor.getSession().setUseWrapMode(true);
-    editor.getSession().setTabSize(2);
+    editor.getSession().setMode("ace/mode/javascript");
   </script>
 
   <script>
@@ -40,7 +42,7 @@
 
     const updateQR = () => {
       // URL生成
-      const url = location.origin + "?s=" + encode(source.value);
+      const url = location.origin + "?s=" + encode(editor.value);
       jQuery('#qrcode').qrcode({
         width: 100,
         height: 100,
