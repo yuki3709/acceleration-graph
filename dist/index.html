@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
-    <!-- TODO: エンコードライブラリの読み込み -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
     <script src="./js/jquery-3.4.1.min.js"></script>
     <script src="./js/jquery.qrcode.min.js"></script>
 </head>
@@ -19,7 +19,7 @@
 <script src="script.js"></script>
 <script>
     // TODO: URLからソースコードを取得
-    const source = decodeURI((location.search).substring(3));
+    const source = LZString.decompressFromEncodedURIComponent((location.search).substring(3));
     alert("eval("+source+ ")=" + eval(source));
     
 </script>
