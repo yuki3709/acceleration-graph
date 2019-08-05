@@ -11,12 +11,14 @@ const options = {
     onClick: function(e, legendItem) {
       var index = legendItem.datasetIndex;
       legendsList[index] = !legendsList[index]
-      //var ci = this.chart;
-      //var meta = ci.getDatasetMeta(index);
+      var ci = this.chart;
+      var meta = ci.getDatasetMeta(index);
+
       // controller.isDatasetVisibleのコメントを参照して下さい。
-      //meta.hidden = meta.hidden === null? legendsList[index] = !legendsList[index] : null;
+      meta.hidden = meta.hidden === null? !ci.data.datasets[index].hidden : null;
+
       // データセットを非表示にしました。チャートを再表示してください。
-      //ci.update();
+      ci.update();
     }	
   },
   scales: {
