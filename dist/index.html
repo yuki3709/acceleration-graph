@@ -26,7 +26,7 @@
 
 </script>
 <script>
-  const vueRate = 500;
+  const vueRate = 200;
   const getVueRateSec = () => Math.round(new Date().getMilliseconds() / vueRate);
   let s = getVueRateSec();
   const store = {a: 0, b: 0, c: 0};
@@ -35,21 +35,20 @@
     return {x, y, z, a, b, c};
   };`);
   window.addEventListener("devicemotion", e => {
-    const {accelerationIncludingGravity: ac} = e;
-    const data = handler(Object.assign({}, ac, store));
-    const {a, b, c} = data;
-    Object.assign(store, {a, b, c});
-    // 文字の更新頻度を遅くする
     const _s = getVueRateSec();
     if (s !== _s) {
+      // 更新頻度を遅くする
       s = _s;
+      const {accelerationIncludingGravity: ac} = e;
+      const data = handler(Object.assign({}, ac, store));
+      const {a, b, c} = data;
+      Object.assign(store, {a, b, c});
       updateView(data);
+      dataList.push(data);
+      dataList = dataList.slice(-length);
+      updateChart();
+      console.log(data);
     }
-
-    dataList.push(data);
-    dataList = dataList.slice(-length);
-    updateChart();
-    console.log(data);
   }, true);
 </script>
 </body>
