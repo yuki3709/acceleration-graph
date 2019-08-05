@@ -61,7 +61,7 @@ const chart = new Chart(chartCanvas, {type, data: {labels, datasets: createDatas
 const updateChart = () => {
 　chart.data.datasets = createDatasets(dataList);
   for(var i=0;i<6;i++){
-    this.chart.getDatasetMeta(i).hidden = legendsList[i];
+    chart.getDatasetMeta(i).hidden = legendsList[i];
   }
   chart.update();
 };
