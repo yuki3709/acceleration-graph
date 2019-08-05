@@ -9,6 +9,7 @@ const range = 15;
 const options = {
   options: {
     onClick: function(e, legendItem) {
+      alert("test");	  
       var index = legendItem.datasetIndex;
       legendsList[0] = true;	
       legendsList[index] = !legendsList[index];
