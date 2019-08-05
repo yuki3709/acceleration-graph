@@ -22,7 +22,7 @@
         <div id="editor" style="height: 600px"></div>
       </div>
       <div class="col-4">
-        <div id="qrcode" style="height:120px;width:120px;border:1px solid #ccc;margin-bottom: 16px"></div>
+        <div id="qrcode" style="height:520px;width:520px;border:1px solid #ccc;margin-bottom: 16px"></div>
         <button id="updateButton">更新</button>
       </div>
     </div>
@@ -47,8 +47,8 @@
       // URL生成
       const url = location.origin + "?s=" + LZString.compressToEncodedURIComponent(editor.getValue());
       jQuery('#qrcode').qrcode({
-        width: 100,
-        height: 100,
+        width: 500,
+        height: 500,
         text: url
       });
       if (qr.childElementCount > 1) qr.removeChild(qr.firstChild);
