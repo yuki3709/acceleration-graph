@@ -34,16 +34,18 @@
     const {accelerationIncludingGravity: ac} = e;
     const {x, y, z} = ac;
     let {a, b, c} = store;
+
+    // TODO: ユーザが定義した関数を実行
+    eval(source);
+
+    // 文字の更新頻度を遅くする
     const _s = getVueRateSec();
     if (s !== _s) {
       s = _s;
-
-      // TODO: ユーザが定義した関数を実行
-      eval(source);
-
       Object.assign(store, {a, b, c});
       updateView({x, y, z, a, b, c});
     }
+  
     dataList.push({x, y, z, a, b, c});
     dataList = dataList.slice(-length);
     updateChart();
