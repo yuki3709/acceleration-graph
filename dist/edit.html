@@ -6,7 +6,9 @@
   <meta name="viewport" content="initial-scale=1.0" />
   <title>Motion Sensor実行</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.js"></script>
   <!-- TODO: エンコードライブラリの読み込み -->
   <script src="./js/jquery-3.4.1.min.js"></script>
@@ -14,43 +16,43 @@
 </head>
 
 <body>
-  <div id="editor" style="height: 600px"></div>
-  <div id="qrcode"></div>
-  <!-- TODO: 編集画面 -->
-  <!--<img id="qr" src="" alt="QRコード">-->
-  <button id="updateButton">更新</button>
-
+  <div class="container mt-4 mb-4">
+    <div class="row">
+      <div class="col-8">
+        <div id="editor" style="height: 600px"></div>
+      </div>
+      <div class="col-4">
+        <div id="qrcode" style="height:120px;width:120px;border:1px solid #ccc;margin-bottom: 16px"></div>
+        <button id="updateButton">更新</button>
+      </div>
+    </div>
+  </div>
   <script>
-    var editor = ace.edit("editor");
+    const editor = ace.edit("editor");
     editor.$blockScrolling = Infinity;
     editor.setOptions({
       enableBasicAutocompletion: true,
       enableSnippets: true,
       enableLiveAutocompletion: true
     });
+
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/javascript");
   </script>
 
   <script>
     const qr = document.getElementById('qrcode');
-    const source = document.getElementById('source');
-    const encode = text => {
-      // TODO: エンコード
-      return encodeURI(text);
-    };
-
+    const source = document.getElementById('editor');
     const updateQR = () => {
       // URL生成
-      const url = location.origin + "?s=" + encode(editor.value);
+      const url = location.origin + "?s=" + LZString.compressToEncodedURIComponent(editor.getValue());
       jQuery('#qrcode').qrcode({
         width: 100,
         height: 100,
         text: url
       });
-      var childElementCount = qr.childElementCount;
+      if (qr.childElementCount > 1) qr.removeChild(qr.firstChild);
       qr.firstChild.style.padding = "10px";
-      if (childElementCount > 1) qr.removeChild(qr.firstChild);
     };
 
     // ボタンに更新イベントを登録

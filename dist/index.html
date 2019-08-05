@@ -7,38 +7,45 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
-    <!-- TODO: エンコードライブラリの読み込み -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
     <script src="./js/jquery-3.4.1.min.js"></script>
     <script src="./js/jquery.qrcode.min.js"></script>
 </head>
 <body>
 <div id="app">
-    X：{{x}}<br>Y：{{y}}<br>Z：{{z}}
+  X：{{x}}<br>Y：{{y}}<br>Z：{{z}}
+  <br>
+  A：{{a}}<br>B：{{b}}<br>Z：{{c}}
 </div>
 <canvas id="chart" height="200"></canvas>
-<script src="script.js"></script>
+<script src="script.js?v=1"></script>
 <script>
     // TODO: URLからソースコードを取得
-    const source = decodeURI((location.search).substring(3));
-    alert("eval("+source+ ")=" + eval(source));
+    const source = LZString.decompressFromEncodedURIComponent((location.search).substring(3));
+    //alert("eval("+source+ ")=" + eval(source));
     
 </script>
 <script>
   const vueRate = 500;
   const getVueRateSec = () => Math.round(new Date().getMilliseconds() / vueRate);
   let s = getVueRateSec();
+  const store = {a: 0, b: 0, c: 0};
   window.addEventListener("devicemotion", e => {
-    const {accelerationIncludingGravity: a} = e;
-    const {x, y, z} = a;
-    dataList.push({x, y, z});
-    dataList = dataList.slice(-length);
+    const {accelerationIncludingGravity: ac} = e;
+    const {x, y, z} = ac;
+    let {a, b, c} = store;
     const _s = getVueRateSec();
     if (s !== _s) {
       s = _s;
+
       // TODO: ユーザが定義した関数を実行
       eval(source);
-      updateView({x, y, z});
+
+      Object.assign(store, {a, b, c});
+      updateView({x, y, z, a, b, c});
     }
+    dataList.push({x, y, z, a, b, c});
+    dataList = dataList.slice(-length);
     updateChart();
     console.log(a);
   }, true);
