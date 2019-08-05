@@ -5,7 +5,7 @@ const type = 'line';
 const labels = Array(length).fill('');
 let dataList = Array(length).fill({x: 0, y: 0, z: 0, a: 0, b: 0, c: 0});
 //let legendsList = Array(6).fill(false);
-const range = 15;
+const range = 30;
 const options = {
   scales: {
     yAxes: [{
