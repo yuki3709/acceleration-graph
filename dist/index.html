@@ -13,33 +13,41 @@
 </head>
 <body>
 <div id="app">
-    X：{{x}}<br>Y：{{y}}<br>Z：{{z}}
+  X：{{x}}<br>Y：{{y}}<br>Z：{{z}}
+  <br>
+  A：{{a}}<br>B：{{b}}<br>Z：{{c}}
 </div>
 <canvas id="chart" height="200"></canvas>
 <script src="script.js"></script>
 <script>
     // TODO: URLからソースコードを取得
     const source = LZString.decompressFromEncodedURIComponent((location.search).substring(3));
-    alert("eval("+source+ ")=" + eval(source));
+    //alert("eval("+source+ ")=" + eval(source));
     
 </script>
 <script>
   const vueRate = 500;
   const getVueRateSec = () => Math.round(new Date().getMilliseconds() / vueRate);
   let s = getVueRateSec();
+  const store = {a: 0, b: 0, c: 0};
   window.addEventListener("devicemotion", e => {
-    const {accelerationIncludingGravity: a} = e;
-    const {x, y, z} = a;
-    dataList.push({x, y, z});
-    dataList = dataList.slice(-length);
+    const {accelerationIncludingGravity: ac} = e;
+    const {x, y, z} = ac;
+    let {a, b, c} = store;
     const _s = getVueRateSec();
     if (s !== _s) {
       s = _s;
+
       // TODO: ユーザが定義した関数を実行
       eval(source);
-      updateView({x, y, z});
+
+      const data = {x, y, z, a, b, c};
+      Object.assign(store, {a, b, c});
+      updateView(data);
+      dataList.push(data);
+      dataList = dataList.slice(-length);
+      updateChart();
     }
-    updateChart();
     console.log(a);
   }, true);
 </script>
