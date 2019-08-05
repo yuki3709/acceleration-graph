@@ -4,8 +4,20 @@ const length = 100;
 const type = 'line';
 const labels = Array(length).fill('');
 let dataList = Array(length).fill({x: 0, y: 0, z: 0, a: 0, b: 0, c: 0});
+let legendsList = Array(6).fill(true);
 const range = 15;
 const options = {
+  options: {
+    onClick: function(e, legendItem) {
+    var index = legendItem.datasetIndex;
+    var ci = this.chart;
+    var meta = ci.getDatasetMeta(index);
+    // controller.isDatasetVisibleのコメントを参照して下さい。
+    meta.hidden = meta.hidden === null? legendsList[index] = !legendsList[index] : null;
+    // データセットを非表示にしました。チャートを再表示してください。
+    ci.update();
+    }	
+  }
   scales: {
     yAxes: [{
       ticks: {
@@ -48,6 +60,5 @@ const createDatasets = dataList => ['x', 'y', 'z', 'a', 'b', 'c'].map(label => (
 const chart = new Chart(chartCanvas, {type, data: {labels, datasets: createDatasets(dataList)}, options});
 const updateChart = () => {
   chart.data.datasets = createDatasets(dataList);
-  chart.options = chart.options;
   chart.update();
 };
