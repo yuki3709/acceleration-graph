@@ -48,5 +48,6 @@ const createDatasets = dataList => ['x', 'y', 'z', 'a', 'b', 'c'].map(label => (
 const chart = new Chart(chartCanvas, {type, data: {labels, datasets: createDatasets(dataList)}, options});
 const updateChart = () => {
   chart.data.datasets = createDatasets(dataList);
+  chart.options = chart.options;
   chart.update();
 };
