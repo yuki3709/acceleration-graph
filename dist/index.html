@@ -13,9 +13,9 @@
 </head>
 <body>
 <div id="app">
-  X：{{x}}<br>Y：{{y}}<br>Z：{{z}}
+  x：{{x}}<br>y：{{y}}<br>z：{{z}}
   <br>
-  A：{{a}}<br>B：{{b}}<br>Z：{{c}}
+  a：{{a}}<br>b：{{b}}<br>c：{{c}}
 </div>
 <canvas id="chart" height="200"></canvas>
 <script src="script.js?v=1"></script>
@@ -30,24 +30,26 @@
   const getVueRateSec = () => Math.round(new Date().getMilliseconds() / vueRate);
   let s = getVueRateSec();
   const store = {a: 0, b: 0, c: 0};
+  eval(`const handler = ({x, y, z, a, b, c}) => {
+    ${source}
+    return {x, y, z, a, b, c};
+  };`);
   window.addEventListener("devicemotion", e => {
     const {accelerationIncludingGravity: ac} = e;
-    const {x, y, z} = ac;
-    let {a, b, c} = store;
+    const data = handler(Object.assign({}, ac, store));
+    // 文字の更新頻度を遅くする
     const _s = getVueRateSec();
     if (s !== _s) {
       s = _s;
-
-      // TODO: ユーザが定義した関数を実行
-      eval(source);
-
+      const {a, b, c} = data;
       Object.assign(store, {a, b, c});
-      updateView({x, y, z, a, b, c});
+      updateView(data);
     }
-    dataList.push({x, y, z, a, b, c});
+  
+    dataList.push(data);
     dataList = dataList.slice(-length);
     updateChart();
-    console.log(a);
+    console.log(data);
   }, true);
 </script>
 </body>
