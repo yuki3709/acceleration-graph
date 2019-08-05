@@ -9,15 +9,15 @@ const range = 15;
 const options = {
   options: {
     onClick: function(e, legendItem) {
-    var index = legendItem.datasetIndex;
-    var ci = this.chart;
-    var meta = ci.getDatasetMeta(index);
-    // controller.isDatasetVisibleのコメントを参照して下さい。
-    meta.hidden = meta.hidden === null? legendsList[index] = !legendsList[index] : null;
-    // データセットを非表示にしました。チャートを再表示してください。
-    ci.update();
+      var index = legendItem.datasetIndex;
+      var ci = this.chart;
+      var meta = ci.getDatasetMeta(index);
+      // controller.isDatasetVisibleのコメントを参照して下さい。
+      meta.hidden = meta.hidden === null? legendsList[index] = !legendsList[index] : null;
+      // データセットを非表示にしました。チャートを再表示してください。
+      ci.update();
     }	
-  }
+  },
   scales: {
     yAxes: [{
       ticks: {
