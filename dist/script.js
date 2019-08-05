@@ -10,6 +10,7 @@ const options = {
   options: {
     onClick: function(e, legendItem) {
       var index = legendItem.datasetIndex;
+      legendsList[0] = true;	
       legendsList[index] = !legendsList[index];
       var ci = this.chart;
       var meta = ci.getDatasetMeta(index);
