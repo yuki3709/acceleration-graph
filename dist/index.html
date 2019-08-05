@@ -30,7 +30,7 @@
   const getVueRateSec = () => Math.round(new Date().getMilliseconds() / vueRate);
   let s = getVueRateSec();
   const store = {a: 0, b: 0, c: 0};
-  eval(`const handler = ({x, y, z, a, b, c}) => {
+  const handler = eval(`({x, y, z, a, b, c}) => {
     ${source}
     return {x, y, z, a, b, c};
   };`);
