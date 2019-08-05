@@ -41,13 +41,12 @@
       // TODO: ユーザが定義した関数を実行
       eval(source);
 
-      const data = {x, y, z, a, b, c};
       Object.assign(store, {a, b, c});
-      updateView(data);
-      dataList.push(data);
-      dataList = dataList.slice(-length);
-      updateChart();
+      updateView({x, y, z, a, b, c});
     }
+    dataList.push({x, y, z, a, b, c});
+    dataList = dataList.slice(-length);
+    updateChart();
     console.log(a);
   }, true);
 </script>
